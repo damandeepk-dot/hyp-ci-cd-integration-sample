@@ -8,6 +8,7 @@ on:
       accessKey:
         description: LT Access Key
         required: true
+       
         
 jobs:
   HyperExecute-Autosplit-2-Concurrency:
@@ -27,6 +28,9 @@ jobs:
       
       - name: Executing the Job
         shell: bash
+        env:
+          GITHUB_COMMIT_SHA: ${{ github.sha }}
+          GITHUB_REF: ${{ github.ref }}
         run: |
           ./hyperexecute --user ${{ github.event.inputs.username }} --key ${{ github.event.inputs.accessKey }} --download-artifacts --config yaml/autosplit_linux.yaml
           echo "Test completion"
